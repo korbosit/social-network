@@ -3,7 +3,7 @@ import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = () => {
-    let postData = [
+    let posts = [
         {
             id: 1,
             message: "Hi 1111",
@@ -45,6 +45,9 @@ const MyPosts = () => {
             likesCount: 127,
         },
     ];
+    let postsElements = posts.map((p) => (
+        <Post message={p.message} likesCount={p.likesCount} id={p.id} />
+    ));
     return (
         <div className={classes.postsBlock}>
             My posts
@@ -57,48 +60,7 @@ const MyPosts = () => {
                 </div>
             </div>
             <div>New post</div>
-            <div className={classes.posts}>
-                <Post
-                    message={postData[0].message}
-                    likesCount={postData[0].id}
-                    id={postData[0].id}
-                />
-                <Post
-                    message={postData[1].message}
-                    likesCount={postData[1].id}
-                    id={postData[1].id}
-                />
-                <Post
-                    message={postData[2].message}
-                    likesCount={postData[2].id}
-                    id={postData[2].id}
-                />
-                <Post
-                    message={postData[3].message}
-                    likesCount={postData[3].id}
-                    id={postData[3].id}
-                />
-                <Post
-                    message={postData[4].message}
-                    likesCount={postData[4].id}
-                    id={postData[4].id}
-                />
-                <Post
-                    message={postData[5].message}
-                    likesCount={postData[5].id}
-                    id={postData[5].id}
-                />
-                <Post
-                    message={postData[6].message}
-                    likesCount={postData[6].id}
-                    id={postData[6].id}
-                />
-                <Post
-                    message={postData[7].message}
-                    likesCount={postData[7].id}
-                    id={postData[7].id}
-                />
-            </div>
+            <div className={classes.posts}>{postsElements}</div>
         </div>
     );
 };
