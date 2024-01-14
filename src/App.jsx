@@ -8,31 +8,27 @@ import "./App.css";
 
 function App(props) {
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header />
-                <Navbar />
-                <div className="app-wrapper-content">
-                    <Routes>
-                        <Route
-                            path="/profile"
-                            element={
-                                <Profile
-                                    state={props.state.profilePage}
-                                    addPost={props.addPost}
-                                />
-                            }
-                        />
-                        <Route
-                            path="/dialogs/*"
-                            element={
-                                <Dialogs state={props.state.dialogsPage} />
-                            }
-                        />
-                    </Routes>
-                </div>
+        <div className="app-wrapper">
+            <Header />
+            <Navbar />
+            <div className="app-wrapper-content">
+                <Routes>
+                    <Route
+                        path="/profile"
+                        element={
+                            <Profile
+                                state={props.state.profilePage}
+                                addPost={props.addPost}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/dialogs/*"
+                        element={<Dialogs state={props.state.dialogsPage} />}
+                    />
+                </Routes>
             </div>
-        </BrowserRouter>
+        </div>
     );
 }
 
