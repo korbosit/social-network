@@ -38,7 +38,8 @@ let rerenderEntireTree = (state) => {
     root.render(
         <BrowserRouter>
             <App
-                state={store.getState()}
+                state={state}
+                store={store}
                 dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>
