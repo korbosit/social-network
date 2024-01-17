@@ -8,31 +8,13 @@ import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-let rerenderEntireTree = (state) => {
-    root.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </BrowserRouter>
-    );
-};
+root.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </BrowserRouter>
+);
 
-// let rerenderEntireTree = (state) => {
-//     ReactDOM.render(
-//         <BrowserRouter>
-//             <App
-//                 state={state}
-//                 addPost={addPost}
-//                 updateNewPostText={updateNewPostText}
-//             />
-//         </BrowserRouter>,
-//         document.getElementById("root")
-//     );
-// };
-
-rerenderEntireTree(store.getState());
-store.subscribe(() => {
-    let state = store.getState();
-    rerenderEntireTree(state);
-});
+// rerenderEntireTree(store.getState());
+// rerenderEntireTree();
