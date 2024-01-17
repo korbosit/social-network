@@ -1,36 +1,9 @@
-// import state, { subscribe } from "./redux/state";
-// import React from "react";
-// import ReactDOM from "react-dom/client";
-// import { BrowserRouter } from "react-router-dom";
-// import { addPost, updateNewPostText } from "./redux/state";
-// import App from "./App.jsx";
-
-// import "./index.css";
-
-// let rerenderEntireTree = (state) => {
-//     ReactDOM.createRoot(document.getElementById("root")).render(
-//         <BrowserRouter>
-//             <App
-//                 state={state}
-//                 addPost={addPost}
-//                 updateNewPostText={updateNewPostText}
-//             />
-//         </BrowserRouter>
-//     );
-// };
-
-// rerenderEntireTree(state);
-// subscribe(rerenderEntireTree);
-
-//========================================================================================================================================================
-
 import store from "./redux/redux-store";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import { Provider } from "./StoreContext";
-
+import { Provider } from "react-redux";
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
