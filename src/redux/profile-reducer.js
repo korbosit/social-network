@@ -35,7 +35,7 @@ let initialState = {
         },
         {
             id: 7,
-            name: "How old are you 777777777",
+            message: "How old are you 777777777",
             likesCount: 99,
         },
         {
