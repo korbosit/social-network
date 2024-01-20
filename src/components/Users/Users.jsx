@@ -4,8 +4,10 @@ import instance from "../../redux/api-instance";
 import userPhoto from "../../assets/images/user.png";
 
 class Users extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
+    // }
+    componentDidMount() {
         instance.get("/users").then((response) => {
             this.props.setUsers(response.data.items);
         });
