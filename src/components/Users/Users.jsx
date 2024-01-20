@@ -4,21 +4,23 @@ import instance from "../../redux/api-instance";
 import userPhoto from "../../assets/images/user.png";
 
 const Users = (props) => {
-    useEffect(() => {
+    // useEffect(() => {
+
+    // }, [props.users]);
+
+    let getUsers = () => {
         if (props.users.length === 0) {
             instance
                 .get("/users") // Обратите внимание на префикс /api, он уже добавляется прокси
                 .then((response) => {
                     props.setUsers(response.data.items); // Предположим, что данные находятся в свойстве items
-                })
-                .catch(function (error) {
-                    console.log(error);
                 });
         }
-    }, [props.users]);
+    };
 
     return (
         <div>
+            <button onClick={getUsers}>Get Users</button>
             {props.users.map((u) => (
                 <div key={u.id}>
                     <span>
