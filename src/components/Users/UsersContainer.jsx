@@ -6,46 +6,57 @@ import {
     setUsersAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
+    toggleIsFetchingAC,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import instance from "../../redux/api-instance";
+
+import Preloader from "../common/Preloader/Preloader";
+
 class UsersContainer extends React.Component {
     constructor(props) {
         super(props);
     }
     componentDidMount() {
+        this.props.toggleIsFetchingAC(true);
         instance
             .get(
                 `/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
             )
             .then((response) => {
+                this.props.toggleIsFetchingAC(false);
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount);
             });
     }
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
+        this.props.toggleIsFetchingAC(true);
         instance
             .get(`/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then((response) => {
+                this.props.toggleIsFetchingAC(ffalse);
                 this.props.setUsers(response.data.items);
             });
     };
     render() {
         return (
-            <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                users={this.props.users}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-            />
+            <>
+                {this.props.isFetching ? <Preloader /> : null}
+                <Users
+                    totalUsersCount={this.props.totalUsersCount}
+                    pageSize={this.props.pageSize}
+                    currentPage={this.props.currentPage}
+                    onPageChanged={this.onPageChanged}
+                    users={this.props.users}
+                    follow={this.props.follow}
+                    unfollow={this.props.unfollow}
+                />
+            </>
         );
     }
 }
-
+// прокидываем из reducer
 let mapStateToProps = (state) => {
     return {
         // users приходит в компоненту Users в пропсы, со значением state.userPage.users
@@ -53,10 +64,11 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     };
 };
 
-// передача дочерней компоненте callbacks
+// передача дочерней компоненте callbacks, принимаем из Action Creator, диспатчим actions, функции возвращают объект и мы диспатчим сам объект action
 let mapDispatchToProps = (dispatch) => {
     return {
         follow: (userId) => {
@@ -73,6 +85,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setTotalUsersCount: (totalCount) => {
             dispatch(setTotalUsersCountAC(totalCount));
+        },
+        toggleIsFetchingAC: (isFetching) => {
+            dispatch(toggleIsFetchingAC(isFetching));
         },
     };
 };
