@@ -1,25 +1,26 @@
-import React from "react";
-import Profile from "./Profile";
-import instance from "../../redux/api-instance";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { setUserProfile } from "../../redux/profile-reducer";
+import Profile from "./Profile";
+import instance from "../../redux/api-instance";
 
-class ProfileContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount() {
-        instance.get(`/profile/2`).then((response) => {
-            this.props.setUserProfile(response.data);
+function ProfileContainer({ setUserProfile, profile }) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const params = useParams();
+
+    useEffect(() => {
+        let userId = params.userId || 2;
+        instance.get(`/profile/${userId}`).then((response) => {
+            setUserProfile(response.data);
         });
-    }
-    render() {
-        return <Profile {...this.props} profile={this.props.profile} />;
-    }
+    }, [params.userId, setUserProfile]);
+
+    return <Profile profile={profile} />;
 }
 
-// Функция возвращает объект
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
 });
 
