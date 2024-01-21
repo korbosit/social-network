@@ -6,11 +6,12 @@ import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 import "./App.css";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 function App(props) {
     return (
         <div className="app-wrapper">
-            <Header />
+            <HeaderContainer />
             <Navbar />
             <div className="app-wrapper-content">
                 <Routes>
