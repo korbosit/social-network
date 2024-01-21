@@ -21,7 +21,10 @@ class UsersContainer extends React.Component {
         this.props.toggleIsFetching(true);
         instance
             .get(
-                `/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+                `/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+                {
+                    withCredentials: true,
+                }
             )
             .then((response) => {
                 this.props.toggleIsFetching(false);
@@ -33,7 +36,9 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
         instance
-            .get(`/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .get(`/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+                withCredentials: true,
+            })
             .then((response) => {
                 this.props.toggleIsFetching(ffalse);
                 this.props.setUsers(response.data.items);
