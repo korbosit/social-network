@@ -3,6 +3,7 @@ import classes from "./Users.module.css";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/user.png";
 import instance from "../../redux/api-instance";
+import { usersAPI } from "../../api/api";
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -51,26 +52,7 @@ let Users = (props) => {
                                         (id) => id === u.id
                                     )}
                                     onClick={() => {
-                                        props.toggleFollowingProgress(
-                                            true,
-                                            u.id
-                                        );
-                                        instance
-                                            .delete(`/follow/${u.id}`, {
-                                                withCredentials: true,
-                                            })
-                                            .then((response) => {
-                                                if (
-                                                    response.data.resultCode ===
-                                                    0
-                                                ) {
-                                                    props.unfollow(u.id);
-                                                }
-                                                props.toggleFollowingProgress(
-                                                    false,
-                                                    u.id
-                                                );
-                                            });
+                                        props.unfollow(u.id);
                                     }}
                                 >
                                     Unfollow
@@ -81,28 +63,7 @@ let Users = (props) => {
                                         (id) => id === u.id
                                     )}
                                     onClick={() => {
-                                        props.toggleFollowingProgress(
-                                            true,
-                                            u.id
-                                        );
-                                        instance
-                                            .post(
-                                                `/follow/${u.id}`,
-                                                {},
-                                                { withCredentials: true }
-                                            )
-                                            .then((response) => {
-                                                if (
-                                                    response.data.resultCode ===
-                                                    0
-                                                ) {
-                                                    props.follow(u.id);
-                                                }
-                                                props.toggleFollowingProgress(
-                                                    false,
-                                                    u.id
-                                                );
-                                            });
+                                        props.follow(u.id);
                                     }}
                                 >
                                     Follow
