@@ -47,7 +47,14 @@ let Users = (props) => {
                         <div>
                             {u.followed ? (
                                 <button
+                                    disabled={props.followingInProgress.some(
+                                        (id) => id === u.id
+                                    )}
                                     onClick={() => {
+                                        props.toggleFollowingProgress(
+                                            true,
+                                            u.id
+                                        );
                                         instance
                                             .delete(`/follow/${u.id}`, {
                                                 withCredentials: true,
@@ -59,6 +66,10 @@ let Users = (props) => {
                                                 ) {
                                                     props.unfollow(u.id);
                                                 }
+                                                props.toggleFollowingProgress(
+                                                    false,
+                                                    u.id
+                                                );
                                             });
                                     }}
                                 >
@@ -66,7 +77,14 @@ let Users = (props) => {
                                 </button>
                             ) : (
                                 <button
+                                    disabled={props.followingInProgress.some(
+                                        (id) => id === u.id
+                                    )}
                                     onClick={() => {
+                                        props.toggleFollowingProgress(
+                                            true,
+                                            u.id
+                                        );
                                         instance
                                             .post(
                                                 `/follow/${u.id}`,
@@ -80,6 +98,10 @@ let Users = (props) => {
                                                 ) {
                                                     props.follow(u.id);
                                                 }
+                                                props.toggleFollowingProgress(
+                                                    false,
+                                                    u.id
+                                                );
                                             });
                                     }}
                                 >
