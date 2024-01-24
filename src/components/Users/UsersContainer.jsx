@@ -9,6 +9,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import { usersAPI } from "../../api/api";
+import { compose } from "redux";
 
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -53,38 +54,13 @@ let mapStateToProps = (state) => {
     };
 };
 
-// передача дочерней компоненте callbacks, принимаем из Action Creator, диспатчим actions, функции возвращают объект и мы диспатчим сам объект action
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followAC(userId));
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowAC(userId));
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersAC(users));
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPageAC(pageNumber));
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountAC(totalCount));
-//         },
-//         toggleIsFetchingAC: (isFetching) => {
-//             dispatch(toggleIsFetchingAC(isFetching));
-//         },
-//     };
-// };
-
-// let withAuthRedirect = withAuthRedirect(UsersController);
-
-export default withAuthRedirect(
+export default compose(
+    withAuthRedirect,
     connect(mapStateToProps, {
         follow,
         unfollow,
         setCurrentPage,
         toggleFollowingProgress,
         getUsers,
-    })(UsersContainer)
-);
+    })
+)(UsersContainer);
