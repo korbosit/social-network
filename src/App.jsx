@@ -7,6 +7,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
 
 function App(props) {
     return (
@@ -21,6 +22,7 @@ function App(props) {
                     />
                     <Route path="/dialogs/*" element={<DialogsContainer />} />
                     <Route path="/users/" element={<UsersContainer />} />
+                    <Route path="/login/" element={<LoginPage />} />
                 </Routes>
             </div>
         </div>

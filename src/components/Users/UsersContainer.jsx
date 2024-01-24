@@ -11,6 +11,7 @@ import Users from "./Users";
 import { usersAPI } from "../../api/api";
 
 import Preloader from "../common/Preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 class UsersContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -76,10 +77,14 @@ let mapStateToProps = (state) => {
 //     };
 // };
 
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    toggleFollowingProgress,
-    getUsers,
-})(UsersContainer);
+// let withAuthRedirect = withAuthRedirect(UsersController);
+
+export default withAuthRedirect(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsers,
+    })(UsersContainer)
+);
