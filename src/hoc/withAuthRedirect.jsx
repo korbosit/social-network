@@ -12,7 +12,12 @@ export const withAuthRedirect = (Component) => {
             super(props);
         }
         render() {
-            if (!this.props.isAuth) return <Navigate to="/login/" />;
+            if (!this.props.isAuth) {
+                return <Navigate to="/login/" />;
+            } else {
+                // Вернуть компонент, если аутентификация прошла успешно
+                return <Component {...this.props} />;
+            }
         }
     }
 
