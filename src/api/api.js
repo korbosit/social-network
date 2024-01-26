@@ -17,6 +17,10 @@ export const usersAPI = {
             })
             .then((response) => {
                 return response.data;
+            })
+            .catch((error) => {
+                console.error("Error during getUsers request:", error);
+                throw error; // переброс ошибки для дальнейшей обработки
             });
     },
     follow(userId) {

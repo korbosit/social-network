@@ -22,7 +22,9 @@ let Users = (props) => {
                                 props.onPageChanged(p);
                             }}
                             className={
-                                props.currentPage === p && classes.selectedPage
+                                props.currentPage === p
+                                    ? classes.selectedPage
+                                    : ""
                             }
                         >
                             {p}
