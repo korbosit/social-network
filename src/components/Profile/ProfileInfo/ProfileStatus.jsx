@@ -5,37 +5,47 @@ class ProfileStatus extends React.Component {
     constructor(props) {
         super(props);
     }
+
     state = {
         editMode: false,
-        title: "Yo",
+        status: this.props.status,
     };
 
-    activateEditMode() {
+    activateEditMode = () => {
         this.setState({
             editMode: true,
         });
-    }
-    deActivateEditMode() {
+    };
+    deActivateEditMode = () => {
         this.setState({
             editMode: false,
         });
-    }
+        this.props.updateStatus(this.props.status);
+    };
+
+    onStatusChange = (e) => {
+        this.setState({
+            status: e.currentTarget.value,
+        });
+    };
+
     render() {
         return (
             <div>
                 {!this.state.editMode && (
                     <div>
-                        <span onDoubleClick={this.activateEditMode.bind(this)}>
-                            {this.props.status}
+                        <span onDoubleClick={this.activateEditMode}>
+                            {this.props.status || "-------"}
                         </span>
                     </div>
                 )}
                 {this.state.editMode && (
                     <div>
                         <input
+                            onChange={this.onStatusChange}
                             autoFocus={true}
-                            onBlur={this.deActivateEditMode.bind(this)}
-                            value={this.props.status}
+                            onBlur={this.deActivateEditMode}
+                            value={this.state.status}
                         />
                     </div>
                 )}

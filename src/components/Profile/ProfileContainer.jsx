@@ -1,37 +1,100 @@
+// import React, { useEffect } from "react";
+// import { useLocation, useNavigate, useParams } from "react-router-dom";
+// import { connect } from "react-redux";
+// import Profile from "./Profile";
+// import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+// import { compose } from "redux";
+// import {
+//     getUserProfile,
+//     getStatus,
+//     updateStatus,
+// } from "../../redux/profile-reducer";
+
+// function ProfileContainer({
+//     setUserProfile,
+//     getUserProfile,
+//     getUserStatus,
+//     profile,
+//     isAuth,
+//     status,
+//     updateStatus,
+// }) {
+//     const location = useLocation();
+//     const navigate = useNavigate();
+//     const params = useParams();
+
+//     let userId = params.userId || 2;
+
+//     getUserProfile(userId);
+//     getStatus(userId);
+
+//     return (
+//         <Profile
+//             profile={profile}
+//             status={status}
+//             updateStatus={updateStatus}
+//         />
+//     );
+// }
+
+// let mapStateToProps = (state) => ({
+//     profile: state.profilePage.profile,
+//     status: state.profilePage.status,
+// });
+
+// export default compose(
+//     connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
+//     withAuthRedirect
+// )(ProfileContainer);
+
+//========================================================================================================================================================
+
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { getUserProfile } from "../../redux/profile-reducer";
 import Profile from "./Profile";
-import { usersAPI } from "../../api/api";
-import { Navigate } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {
+    getUserProfile,
+    getStatus,
+    updateStatus,
+} from "../../redux/profile-reducer";
 
-function ProfileContainer({ setUserProfile, getUserProfile, profile, isAuth }) {
+function ProfileContainer({
+    setUserProfile,
+    getUserProfile,
+    getUserStatus,
+    profile,
+    isAuth,
+    status,
+    updateStatus,
+}) {
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
 
-    // useEffect(() => {
-    //     let userId = params.userId || 2;
-    //     instance.get(`/profile/${userId}`).then((response) => {
-    //         setUserProfile(response.data);
-    //     });
-    // }, [params.userId, setUserProfile]);
+    useEffect(() => {
+        let userId = params.userId || 2;
+        getUserProfile(userId);
+        getStatus(userId);
+    }, [params.userId, getUserProfile, getStatus]);
 
-    let userId = params.userId || 2;
-
-    getUserProfile(userId);
-
-    return <Profile profile={profile} />;
+    return (
+        <Profile
+            profile={profile}
+            status={status}
+            updateStatus={updateStatus}
+        />
+    );
 }
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status,
 });
 
 export default compose(
-    connect(mapStateToProps, { getUserProfile }),
+    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
     withAuthRedirect
 )(ProfileContainer);
