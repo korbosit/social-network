@@ -24,16 +24,21 @@ function ProfileContainer({
     const navigate = useNavigate();
     const params = useParams();
     useEffect(() => {
-        let userId = params.userId;
+        // let userId = params.userId;
+        // if (!userId) {
+        //     userId = authorizedUserId;
+        //     if (!userId) {
+        //         history.push("/login");
+        //     }
+        // }
+
+        let userId = params.userId || authorizedUserId;
         if (!userId) {
-            userId = authorizedUserId;
-            if (!userId) {
-                history.push("/login");
-            }
+            navigate("/login");
         }
         getUserProfile(userId);
         getStatus(userId);
-    }, [params.userId, getUserProfile, getStatus, authorizedUserId]);
+    }, [params.userId, getUserProfile, getStatus, authorizedUserId, navigate]);
 
     return (
         <Profile
