@@ -18,16 +18,20 @@ function ProfileContainer({
     isAuth,
     status,
     updateStatus,
+    authorizedUserId,
 }) {
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
 
     useEffect(() => {
-        let userId = params.userId || 2;
+        let userId = params.userId;
+        if (!userId) {
+            userId = authorizedUserId;
+        }
         getUserProfile(userId);
         getStatus(userId);
-    }, [params.userId, getUserProfile, getStatus]);
+    }, [params.userId, getUserProfile, getStatus, authorizedUserId]);
 
     return (
         <Profile
@@ -41,6 +45,8 @@ function ProfileContainer({
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth,
 });
 
 export default compose(
