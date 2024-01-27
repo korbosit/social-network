@@ -23,11 +23,13 @@ function ProfileContainer({
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
-
     useEffect(() => {
         let userId = params.userId;
         if (!userId) {
             userId = authorizedUserId;
+            if (!userId) {
+                history.push("/login");
+            }
         }
         getUserProfile(userId);
         getStatus(userId);

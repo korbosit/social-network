@@ -2,8 +2,6 @@ import React from "react";
 import classes from "./Users.module.css";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../assets/images/user.png";
-import instance from "../../redux/api-instance";
-import { usersAPI } from "../../api/api";
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
