@@ -1,16 +1,16 @@
 import React from "react";
 import classes from "./FormsContol.module.css";
 
-const FormContol = ({ input, meta, child, ...props }) => {
-    const hasError = meta.touched && meta.error;
+const FormContol = ({ input, meta: { touched, error }, children }) => {
+    const hasError = touched && error;
     return (
         <div
             className={
                 classes.formControl + " " + (hasError ? classes.error : "")
             }
         >
-            <div>{props.children}</div>
-            {hasError && <span>{meta.error}</span>}
+            <div>{children}</div>
+            {hasError && <span>{error}</span>}
         </div>
     );
 };
@@ -32,3 +32,23 @@ export const Input = (props) => {
         </FormContol>
     );
 };
+
+export const createField = (
+    placeholder,
+    name,
+    validators,
+    component,
+    props = {},
+    text = ""
+) => (
+    <div>
+        <Field
+            placeholder={placeholder}
+            name={name}
+            component={component}
+            validate={validators}
+            {...props}
+        />{" "}
+        {text}
+    </div>
+);

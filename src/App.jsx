@@ -11,26 +11,6 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 
-// function App(props) {
-//     return (
-//         <div className="app-wrapper">
-//             <HeaderContainer />
-//             <Navbar />
-//             <div className="app-wrapper-content">
-//                 <Routes>
-//                     <Route
-//                         path="/profile/:userId?"
-//                         element={<ProfileContainer />}
-//                     />
-//                     <Route path="/dialogs/*" element={<DialogsContainer />} />
-//                     <Route path="/users/" element={<UsersContainer />} />
-//                     <Route path="/login/" element={<LoginPage />} />
-//                 </Routes>
-//             </div>
-//         </div>
-//     );
-// }
-
 function App({ initializeApp, initialized }) {
     const navigate = useNavigate();
 
