@@ -8,48 +8,46 @@ import {
     getUserProfile,
     getStatus,
     updateStatus,
+    savePhoto,
 } from "../../redux/profile-reducer";
 
 function ProfileContainer({
-    setUserProfile,
     getUserProfile,
-    getUserStatus,
-    profile,
-    isAuth,
-    status,
+    getStatus,
     updateStatus,
+    savePhoto,
+    profile,
+    status,
     authorizedUserId,
 }) {
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
+
     useEffect(() => {
         let userId = params.userId;
         if (!userId) {
             userId = authorizedUserId;
             if (!userId) {
-                history.push("/login");
+                navigate("/login");
             }
         }
-
-        // let userId = params.userId || authorizedUserId;
-        // if (!userId) {
-        //     navigate("/login");
-        // }
         getUserProfile(userId);
         getStatus(userId);
     }, [params.userId, getUserProfile, getStatus, authorizedUserId, navigate]);
 
     return (
         <Profile
+            isOwner={!params.userId}
             profile={profile}
             status={status}
             updateStatus={updateStatus}
+            savePhoto={savePhoto}
         />
     );
 }
 
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
@@ -57,6 +55,11 @@ let mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
+    connect(mapStateToProps, {
+        getUserProfile,
+        getStatus,
+        updateStatus,
+        savePhoto,
+    }),
     withAuthRedirect
 )(ProfileContainer);
